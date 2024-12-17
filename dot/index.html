@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        @font-face {
+        font-family: 'Pretendard-Regular';
+        src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+        font-weight: 400;
+        font-style: normal;
+      }
+
+        html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+        font-family: 'Pretendard-Regular';
+        font-size: 1vw;
+      }
+
+        #dots {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        video {
+            display: none;
+        }
+
+        .dot {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .controls {
+            margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* 버튼을 수직 중앙에 정렬 */
+        position: absolute; /* 화면 상에서 위치 지정 */
+        padding-top: 0.8vw;
+        width: 10vw;
+        height: 100%;
+        background-color: white;
+        z-index: 100;
+        transition: left 0.3s ease;
+        left: 0;
+        background-color: #EAEAEA;
+        top: 0;
+        transition: left 0.3s ease;
+        }
+
+        .apply-btn {
+        -webkit-appearance: none; /* 브라우저 기본 스타일 제거 */
+        -moz-appearance: none; /* Firefox 기본 스타일 제거 */
+        appearance: none; /* 기본 스타일 제거 */
+            margin-top: 0.8vw;
+            margin-bottom: 1.5vw;
+        padding: 0.75vw 1.3vw;
+        border: 0.1vw solid black;
+        border-radius: 7.5vw;
+        background-color: #EAEAEA;
+        color: black;
+        font-size: 1vw;
+        font-weight: 400;
+        font-family: 'Pretendard-Regular';
+        cursor: pointer;
+        transition: all 0.3s;
+        }
+
+        .preset-btn {
+    width: 9vw; /* 버튼 너비 */
+    height: 3vw; /* 버튼 높이 */
+    margin: 0; /* 불필요한 마진 제거 */
+    border: 0vw solid black;
+    border-radius: 2vw 2vw 0 0;
+    background-color: white;
+    font-family: 'Pretendard-Regular';
+    font-size: 1vw;
+    font-weight: 400;
+    color: black;
+    cursor: pointer;
+    transform: rotate(90deg); /* 글자 90도 회전 */
+    position: relative;
+    right: 0;
+    clip-path: polygon(10% 0, 90% 0, 100% 100%, 0 100%);
+}
+
+    .presets {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: absolute;
+    top: 2.2vw;
+    left: 6.95vw; /* .container의 너비를 기준으로 조정 */
+    z-index: 100;
+     transition: left 0.3s ease;}
+
+
+/* 버튼 간격 및 위치 */
+.preset-btn[data-preset="preset1"] {
+    top: 6vw;
+    background-color: #E8EB8F;
+}
+
+.preset-btn[data-preset="preset3"] {
+    top: 12vw; /* 버튼 높이 3.75vw + 간격 */
+    background-color: #EAEAEA;
+
+}
+
+.preset-btn[data-preset="preset4"] {
+    top: 18vw; /* 버튼 높이 3.75vw + 간격 */
+    background-color: #EAEAEA;
+}
+
+.preset-btn[data-preset="preset5"] {
+    top: 24vw; /* 버튼 높이 3.75vw + 간격 */
+    background-color: #7CEBAB;
+}
+
+.container.hidden {
+        left: -6vw; /* 화면 밖으로 이동 */
+    }
+
+    .presets.hidden {
+    left: -3vw; /* 화면 밖으로 밀어내기 */
+    }
+
+     #toggleButton {
+    width: 9vw;
+    height: 3vw;
+    margin: 0;
+    border: 0vw solid black;
+    border-radius: 2vw 2vw 0 0;
+    background-color: white;
+    font-family: 'Pretendard-Regular';
+    font-size: 1vw;
+    font-weight: 400;
+    color: black;
+    cursor: pointer;
+    transform: rotate(90deg);
+    position: relative;
+    right: 0;
+    clip-path: polygon(10% 0, 90% 0, 100% 100%, 0 100%);
+    z-index: 200; /* 다른 버튼보다 위로 */
+}
+
+.controls.hidden {
+        left: -10vw; /* 화면 밖으로 이동 */
+    }
+
+    .presets.hidden {
+    left: -3vw; /* 화면 밖으로 밀어내기 */
+    }
+
+
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <label for="dotSizeRange">점 크기</label>
+        <input type="range" id="dotSizeRange" min="7" max="20" value="12" step="1">
+        <button class="apply-btn" id="applyButton">적용</button>
+    </div>
+
+    <div class="presets">
+    <button id="toggleButton">
+    <span class="rotate-text">▽</span>
+</button>
+    <button class="preset-btn" data-preset="preset1">Filter 1</button>
+    <button class="preset-btn" data-preset="preset3">Filter 2</button>
+    <button class="preset-btn" data-preset="preset4">Filter 3</button>
+</div>
+
+    <video id="webcam" autoplay playsinline></video>
+    <div id="dots"></div>
+
+    <script>
+        const video = document.getElementById('webcam');
+const dotsContainer = document.getElementById('dots');
+const dotSizeRange = document.getElementById('dotSizeRange');
+const applyButton = document.getElementById('applyButton');
+
+let previousImageData = null;
+let trails = [];
+let lastMovementTime = Date.now();
+let currentDotSize = dotSizeRange.value;
+
+const motionThreshold = 50;
+const maxTrailDuration = 5000;
+
+navigator.mediaDevices.getUserMedia({ video: true })
+    .then(stream => {
+        video.srcObject = stream;
+        video.play();
+        video.addEventListener('play', () => updateDots());
+    })
+    .catch(err => {
+        console.error('Webcam access denied:', err);
+    });
+
+function updateDots() {
+    const canvas = document.createElement('canvas');
+    canvas.willReadFrequently = true;
+    const context = canvas.getContext('2d');
+
+    const width = 160;
+    const height = 90;
+    canvas.width = width;
+    canvas.height = height;
+
+    function renderFrame() {
+        context.drawImage(video, 0, 0, width, height);
+        const imageData = context.getImageData(0, 0, width, height);
+
+        generateDots(imageData);
+        requestAnimationFrame(renderFrame);
+    }
+
+    renderFrame();
+}
+
+function generateDots(imageData) {
+    const pixels = imageData.data;
+    const width = imageData.width;
+    const height = imageData.height;
+
+    const currentImageData = [];
+
+    dotsContainer.innerHTML = '';
+
+    for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+            const offset = (y * width + x) * 4;
+            const r = pixels[offset];
+            const g = pixels[offset + 1];
+            const b = pixels[offset + 2];
+
+            const brightness = ((r + g + b) / 3);
+            const dotColor = `rgb(${r},${g},${b})`;
+
+            createDot(x, y, dotColor);
+            currentImageData.push(brightness);
+        }
+    }
+
+    detectMotion(currentImageData, width, height);
+    previousImageData = currentImageData;
+}
+
+function createDot(x, y, color) {
+    const dot = document.createElement('div');
+    dot.classList.add('dot');
+    dot.style.width = `${currentDotSize}px`;
+    dot.style.height = `${currentDotSize}px`;
+    dot.style.left = `${(x / 160) * 100}%`;
+    dot.style.top = `${(y / 90) * 100}%`;
+    dot.style.backgroundColor = color;
+    dotsContainer.appendChild(dot);
+}
+
+function detectMotion(currentImageData, width, height) {
+    const now = Date.now();
+    let hasMotion = false;
+
+    if (!previousImageData) return;
+
+    for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+            const index = y * width + x;
+            const brightnessDiff = Math.abs(currentImageData[index] - previousImageData[index]);
+
+            if (brightnessDiff > motionThreshold) {
+                trails.push({ x, y, timestamp: now });
+                hasMotion = true;
+            }
+        }
+    }
+
+    trails = trails.filter(trail => now - trail.timestamp < maxTrailDuration);
+    lastMovementTime = hasMotion ? now : lastMovementTime;
+}
+
+applyButton.addEventListener('click', () => {
+    currentDotSize = dotSizeRange.value;
+});
+
+const toggleButton = document.getElementById('toggleButton');
+const controls = document.querySelector('.controls');
+const presets = document.querySelector('.presets');
+let isHidden = false;
+
+toggleButton.addEventListener('click', function() {
+    if (isHidden) {
+        controls.classList.remove('hidden');
+        presets.classList.remove('hidden');
+        toggleButton.innerHTML = '▽';
+    } else {
+        controls.classList.add('hidden');
+        presets.classList.add('hidden');
+        toggleButton.innerHTML = '△';
+    }
+    isHidden = !isHidden;
+});
+
+// Preset 버튼 클릭 이벤트
+document.querySelectorAll('.preset-btn').forEach(button => {
+    button.addEventListener('click', () => {
+        applyPreset(button.dataset.preset);
+    });
+});
+
+function applyPreset(preset) {
+    const dotsContainer = document.getElementById('dots');
+
+    switch (preset) {
+        case "preset1":
+            dotsContainer.style.filter = "saturate(140%) hue-rotate(40deg)";  // 채도 증가
+            break;
+        case "preset3":
+            dotsContainer.style.filter = "saturate(110%) hue-rotate(-20deg)";  // 색상 반전
+            break;
+        case "preset4":
+            dotsContainer.style.filter = "none";  // 색상 회전
+            break;
+        default:
+            dotsContainer.style.filter = "none";  // 기본값
+            break;
+    }
+}
+
+
+    </script>
+</body>
+</html>

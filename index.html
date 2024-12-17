@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <style>
+
+    @font-face {
+    font-family: 'SUIT-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+   body, html,p {
+      margin: 0;
+      padding: 0;
+    overflow: hidden;
+    height: 100%;
+    width: 100%}
+
+    .div-wrapper, .overlap, .overlap-2 {
+    width: 100%; /* 화면 너비에 맞게 조정 */
+}
+
+  .overlap-group {
+      border: 0.18vw solid;
+      border-color: #000000;
+      border-radius: 100vw;
+      height: 4.7vw; /* 68px을 vw 단위로 변환 */
+      left: 4.4vw; /* 63px을 vw 단위로 변환 */
+      position: absolute;
+      top: 3.6vw; /* 52px을 vw 단위로 변환 */
+      width: 20vw;
+    }
+
+.text-wrapper {
+      color: #000000;
+      font-family: "SUIT-Regular";
+      font-size: 2.2vw; /* 32px을 vw 단위로 변환 */
+      font-weight: 500;
+      left: 2.6vw; /* 37px을 vw 단위로 변환 */
+      letter-spacing: 0;
+      line-height: normal;
+      position: absolute;
+      top: 0.8vw; /* 11px을 vw 단위로 변환 */
+    }
+.overlap {
+      background-color: #f5ff7d;
+      height: 6.1vw; /* 88px을 vw 단위로 변환 */
+      left: -0.1vw; /* -2px을 vw 단위로 변환 */
+      position: absolute;
+      bottom: 6.2vw; /* 761px을 vw 단위로 변환 */
+      padding-bottom: 6vw;
+    }
+
+.text-wrapper-2 {
+      color: #000000;
+      font-family: "SUIT-Regular";
+      font-size: 2.2vw; /* 32px을 vw 단위로 변환 */
+      font-weight: 400;
+      left: 4.5vw; /* 65px을 vw 단위로 변환 */
+      letter-spacing: 0;
+      line-height: normal;
+      position: absolute;
+      top: 1.3vw; /* 19px을 vw 단위로 변환 */
+    }
+
+.various-techniques {
+      color: #000000;
+      font-family: "SUIT-Regular";
+      font-size: 4.2vw; /* 72px을 vw 단위로 변환 */
+      font-weight: 400;
+      left: 4.4vw; /* 63px을 vw 단위로 변환 */
+      letter-spacing: 0;
+      line-height: 5.5vw; /* 86.4px을 vw 단위로 변환 */
+      position: absolute;
+      top: 10.4vw; /* 149px을 vw 단위로 변환 */
+      width: 90vw;
+    }
+
+.div-wrapper {
+      background-color: #bfecfc;
+      height: 6.1vw; /* 87px을 vw 단위로 변환 */
+      left: -0.1vw; /* -2px을 vw 단위로 변환 */
+      position: absolute;
+      bottom: 0.1vw; /* 849px을 vw 단위로 변환 */
+      padding-bottom: 6vw;
+    }
+ .overlap-2 {
+      background-color: #58E4AC;
+      height: 6.1vw; /* 87px을 vw 단위로 변환 */
+      left: -0.1vw; /* -2px을 vw 단위로 변환 */
+      position: absolute;
+      bottom: -6vw; /* 849px을 vw 단위로 변환 */
+      padding-bottom: 6vw;
+    }
+
+
+    .text-wrapper-2:hover {
+  opacity: 0.5; /* 투명도를 50%로 설정 */
+  transition: opacity 0.3s ease; /* 부드러운 전환 효과 */
+}
+
+.overlap, .div-wrapper, .overlap-2 {
+    transition: transform 0.3s ease; /* 부드러운 이동 효과 */
+  }
+
+  .overlap:hover {
+    transform: translateY(-4vw); /* 1vw 만큼 위로 이동 */
+  }
+
+  .div-wrapper:hover {
+    transform: translateY(-4vw); /* 1vw 만큼 위로 이동 */
+  }
+
+  .overlap-2:hover {
+    transform: translateY(-4vw); /* 1vw 만큼 위로 이동 */
+  }
+  </style>
+</head>
+<body>
+
+      <div class="overlap-group">
+        <div class="text-wrapper">Art Techniques</div>
+      </div>
+
+
+      <p class="various-techniques">
+        Various techniques can inspire <br />
+        designers, but they can be cumbersome.
+        <br />
+        This is a website where you can try out <br />
+        different art techniques.
+      </p>
+
+      <div class="overlap">
+        <div class="text-wrapper-2" onclick="window.location.href='marbling/index.html'">Marbling</div>
+      </div>
+      <div class="div-wrapper">
+        <div class="text-wrapper-2" onclick="window.location.href='blowing/index.html'">Blowing paint</div>
+      </div>
+      <div class="overlap-2">
+        <div class="text-wrapper-2" onclick="window.location.href='dot/index.html'">Pointillism</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
