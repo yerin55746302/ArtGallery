@@ -244,7 +244,7 @@
             const sum = dataArray.reduce((a, b) => a + b, 0);
             const average = sum / dataArray.length;
 
-            if (average > 43) { // 데시벨 수준을 임계값으로 설정
+            if (average > 50) { // 데시벨 수준을 임계값으로 설정
               const randomX = Math.random() * canvas.width;
               const randomY = Math.random() * canvas.height;
               const randomColor = similarColors[Math.floor(Math.random() * similarColors.length)];
